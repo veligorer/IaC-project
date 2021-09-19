@@ -46,7 +46,7 @@
   notify: configure default users
 
 - name: update hosts file 
-  shell: echo "192.168.50.12 {{ jenkins_hostname }} >> /etc/hosts
+  shell: echo "192.168.50.12 {{ jenkins_hostname }}" >> /etc/hosts
 
 - name: Add vagrant user to docker group
   user:
