@@ -15,7 +15,7 @@ git clone https://github.com/veligorer/IaC-simple-deployment.git
 ```
 #### Change directory
 ```
-cd IaC-simple-deployment
+cd IaC-project
 ```
 
 #### Create empty ca.crt file
