@@ -1,0 +1,8 @@
+.vagrant
+<<<<<<< HEAD
+.git
+=======
+>>>>>>> 3a4e6e7f36bd1985cdb08a3d9a23da5f827718dd
+setup-playbook/files/ca.crt
+setup-playbook/files/config
+setup-playbook/files/join-command

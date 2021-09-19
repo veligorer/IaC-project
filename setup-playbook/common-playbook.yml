@@ -1,0 +1,15 @@
+- hosts: all
+  become: true
+  
+  vars:
+    jenkins_hostname: jenkins.example.com
+    jenkins_admin_username: admin
+    jenkins_admin_password: admin
+    java_packages:
+      - openjdk-8-jdk
+
+  roles:
+    - role: registry
+    - role: java 
+    - role: jenkins 
+    - role: deploy

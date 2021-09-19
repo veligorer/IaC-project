@@ -1,0 +1,33 @@
+    - name: Creates directory
+      file:
+        path: jenkinscli
+        state: directory
+
+    - name: copy xml files 
+      copy:
+        src: "./files/{{ item }}"
+        dest: "./jenkinscli/{{ item }}"
+      with_items:
+      - GIT_HUB_CREDENTIALS.xml
+      - REGISRTY_CREDENTIALS.xml
+      - docker-pets.xml 
+
+    - name: download jenkins-cli.jar 
+      shell: wget -O ./jenkinscli/jenkins-cli.jar "http://{{ jenkins_hostname }}:8080/jnlpJars/jenkins-cli.jar"
+
+    - name: install pipeline plugin
+      shell: java -jar ./jenkinscli/jenkins-cli.jar -auth {{ jenkins_admin_username }}:{{ jenkins_admin_password }} -s "http://{{ jenkins_hostname }}:8080/" -webSocket install-plugin workflow-aggregator -restart
+
+    - pause: seconds=60
+
+    - name: create GIT_HUB_CREDENTIALS
+      shell: java -jar ./jenkinscli/jenkins-cli.jar -auth {{ jenkins_admin_username }}:{{ jenkins_admin_password }} -s "http://{{ jenkins_hostname }}:8080/" -webSocket create-credentials-by-xml  system::system::jenkins _ < ./jenkinscli/GIT_HUB_CREDENTIALS.xml
+
+    - name: create REGISRTY_CREDENTIALS
+      shell: java -jar ./jenkinscli/jenkins-cli.jar -auth {{ jenkins_admin_username }}:{{ jenkins_admin_password }} -s "http://{{ jenkins_hostname }}:8080/" -webSocket create-credentials-by-xml  system::system::jenkins _ < ./jenkinscli/REGISRTY_CREDENTIALS.xml
+
+    - name: create docker-pets job
+      shell: java -jar ./jenkinscli/jenkins-cli.jar -auth {{ jenkins_admin_username }}:{{ jenkins_admin_password }} -s "http://{{ jenkins_hostname }}:8080/" -webSocket create-job docker-pets < ./jenkinscli/docker-pets.xml
+
+    - name: trigger docker-pets job
+      shell: java -jar ./jenkinscli/jenkins-cli.jar -auth {{ jenkins_admin_username }}:{{ jenkins_admin_password }} -s "http://{{ jenkins_hostname }}:8080/" -webSocket build docker-pets -s
