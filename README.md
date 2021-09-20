@@ -11,7 +11,7 @@ In this project demonstrace infrastructure as code principles with simple kubern
 
 #### Clone source code from git
 ```
-git clone https://github.com/veligorer/IaC-simple-deployment.git
+git clone https://github.com/veligorer/IaC-project.git
 ```
 #### Change directory
 ```
