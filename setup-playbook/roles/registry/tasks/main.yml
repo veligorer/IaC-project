@@ -104,4 +104,4 @@
 
     - name: create docker registry secret
       become: false
-      shell: kubectl create secret docker-registry secret-key --docker-server="https://{{ myregistry }}:5000" "--docker-username={{ registryuser }}"  "--docker-password={{ registrypassword }} "
+      shell: kubectl create secret docker-registry secret-key --docker-server="https://{{ myregistry }}:5000" "--docker-username={{ registryuser }}"  "--docker-password={{ registrypassword }}"
